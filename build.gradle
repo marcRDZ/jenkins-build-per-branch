@@ -21,13 +21,6 @@ task createSourceDirs(description : 'Create empty source directories for all def
     }
 }
 
-idea {
-    project {
-        jdkName = '1.6'
-    }
-}
-
-
 task syncWithRepo(dependsOn: 'classes', type: JavaExec) {
     main = 'com.entagen.jenkins.Main'
     classpath = sourceSets.main.runtimeClasspath
@@ -39,7 +32,7 @@ task syncWithRepo(dependsOn: 'classes', type: JavaExec) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.9'
+    gradleVersion = '2.12'
 }
 
 

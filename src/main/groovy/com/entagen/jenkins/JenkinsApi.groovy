@@ -88,7 +88,13 @@ class JenkinsApi {
                 return "$prefix${missingJob.branchName}<"
             }
         }
-
+		
+		// replace the BRANCH_NAME default value in template with specific branch
+		if (config.contains("<defaultValue>refs/heads/develop</defaultValue>")){
+			println "setting BRANCH_NAME refs/heads/${missingJob.branchName}"
+			config = config.replaceAll("<defaultValue>refs/heads/develop</defaultValue>", "<defaultValue>refs/heads/${missingJob.branchName}</defaultValue>")
+		}
+		
         // this is in case there are other down-stream jobs that this job calls, we want to be sure we're replacing their names as well
         templateJobs.each {
             config = config.replaceAll(it.jobName, it.jobNameForBranch(missingJob.branchName))
